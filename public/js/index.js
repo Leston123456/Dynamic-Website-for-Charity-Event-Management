@@ -1,14 +1,14 @@
-// 首页JavaScript功能
+// Homepage JavaScript functionality
 
 document.addEventListener('DOMContentLoaded', function() {
-    // 初始化页面
+    // Initialize page
     initializePage();
 });
 
-// 初始化页面
+// Initialize page
 async function initializePage() {
     try {
-        // 并行加载所有数据
+        // Load all data in parallel
         await Promise.all([
             loadStatistics(),
             loadOrganizationInfo(),
@@ -16,12 +16,12 @@ async function initializePage() {
             loadAllEvents()
         ]);
     } catch (error) {
-        console.error('页面初始化失败:', error);
-        showError('页面加载失败，请刷新页面重试');
+        console.error('Page initialization failed:', error);
+        showError('Page loading failed, please refresh and try again');
     }
 }
 
-// 加载统计信息
+// Load statistics
 async function loadStatistics() {
     try {
         const response = await apiRequest('/organizations/statistics');
@@ -29,8 +29,8 @@ async function loadStatistics() {
             updateStatistics(response.data);
         }
     } catch (error) {
-        console.error('加载统计信息失败:', error);
-        // 设置默认值
+        console.error('Failed to load statistics:', error);
+        // Set default values
         updateStatistics({
             totalEvents: 0,
             totalFunds: 0,
@@ -39,7 +39,7 @@ async function loadStatistics() {
     }
 }
 
-// 更新统计信息显示
+// Update statistics display
 function updateStatistics(stats) {
     const elements = {
         'total-events': stats.totalEvents,
@@ -50,7 +50,7 @@ function updateStatistics(stats) {
     Object.entries(elements).forEach(([id, value]) => {
         const element = document.getElementById(id);
         if (element) {
-            // 数字动画效果
+            // Number animation effect
             if (typeof value === 'number') {
                 animateNumber(element, 0, value, 2000);
             } else {
@@ -60,7 +60,7 @@ function updateStatistics(stats) {
     });
 }
 
-// 数字动画效果
+// Number animation effect
 function animateNumber(element, start, end, duration) {
     if (start === end) {
         element.textContent = end;
@@ -91,7 +91,7 @@ function animateNumber(element, start, end, duration) {
     run();
 }
 
-// 加载组织信息
+// Load organization info
 async function loadOrganizationInfo() {
     try {
         const response = await apiRequest('/organizations/info');
@@ -99,49 +99,49 @@ async function loadOrganizationInfo() {
             updateOrganizationInfo(response.data);
         }
     } catch (error) {
-        console.error('加载组织信息失败:', error);
-        // 设置默认组织信息
+        console.error('Failed to load organization info:', error);
+        // Set default organization info
         updateOrganizationInfo({
-            name: '慈善活动管理系统',
-            description: '我们致力于为各种慈善活动提供专业的管理平台，连接善心人士与需要帮助的人群。',
+            name: 'Charity Event Management System',
+            description: 'We are committed to providing professional management platforms for various charity events, connecting caring people with those in need.',
             email: 'info@charity.org',
             phone: '1800-CHARITY',
-            address: '澳大利亚悉尼市'
+            address: 'Sydney, Australia'
         });
     }
 }
 
-// 更新组织信息显示
+// Update organization info display
 function updateOrganizationInfo(info) {
     const organizationInfoElement = document.getElementById('organization-info');
     if (organizationInfoElement) {
         organizationInfoElement.innerHTML = `
             <p>${info.description}</p>
-            ${info.website ? `<p><strong>网站:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>` : ''}
+            ${info.website ? `<p><strong>Website:</strong> <a href="${info.website}" target="_blank">${info.website}</a></p>` : ''}
         `;
     }
     
-    // 更新联系信息
+    // Update contact info
     const contactDetailsElement = document.getElementById('contact-details');
     if (contactDetailsElement) {
         contactDetailsElement.innerHTML = `
             <div class="contact-item">
-                <i class="fas fa-envelope"></i>
+                <span class="contact-symbol">@</span>
                 <span>${info.email}</span>
             </div>
             <div class="contact-item">
-                <i class="fas fa-phone"></i>
+                <span class="contact-symbol">☎</span>
                 <span>${info.phone}</span>
             </div>
             <div class="contact-item">
-                <i class="fas fa-map-marker-alt"></i>
+                <span class="contact-symbol">📍</span>
                 <span>${info.address}</span>
             </div>
         `;
     }
 }
 
-// 加载精选活动
+// Load featured events
 async function loadFeaturedEvents() {
     try {
         const response = await apiRequest('/events/featured');
@@ -149,12 +149,12 @@ async function loadFeaturedEvents() {
             displayFeaturedEvents(response.data);
         }
     } catch (error) {
-        console.error('加载精选活动失败:', error);
-        displayError('featured-events-grid', '加载精选活动失败');
+        console.error('Failed to load featured events:', error);
+        displayError('featured-events-grid', 'Failed to load featured events');
     }
 }
 
-// 显示精选活动
+// Display featured events
 function displayFeaturedEvents(events) {
     const container = document.getElementById('featured-events-grid');
     if (!container) return;
@@ -162,8 +162,8 @@ function displayFeaturedEvents(events) {
     if (events.length === 0) {
         container.innerHTML = `
             <div class="no-events">
-                <i class="fas fa-info-circle"></i>
-                <p>暂无精选活动</p>
+                <span class="no-events-icon">ℹ</span>
+                <p>No featured events available</p>
             </div>
         `;
         return;
@@ -172,7 +172,7 @@ function displayFeaturedEvents(events) {
     container.innerHTML = events.map(event => createEventCard(event)).join('');
 }
 
-// 加载所有活动
+// Load all events
 async function loadAllEvents() {
     const container = document.getElementById('all-events-grid');
     if (!container) return;
@@ -185,14 +185,14 @@ async function loadAllEvents() {
             displayAllEvents(response.data);
         }
     } catch (error) {
-        console.error('加载所有活动失败:', error);
-        displayError('all-events-grid', '加载活动失败');
+        console.error('Failed to load all events:', error);
+        displayError('all-events-grid', 'Failed to load events');
     } finally {
         hideLoading('loading');
     }
 }
 
-// 显示所有活动
+// Display all events
 function displayAllEvents(events) {
     const container = document.getElementById('all-events-grid');
     if (!container) return;
@@ -200,21 +200,21 @@ function displayAllEvents(events) {
     if (events.length === 0) {
         container.innerHTML = `
             <div class="no-events">
-                <i class="fas fa-info-circle"></i>
-                <p>暂无活动</p>
+                <span class="no-events-icon">ℹ</span>
+                <p>No events available</p>
             </div>
         `;
         return;
     }
     
-    // 过滤掉精选活动（避免重复显示）
+    // Filter out featured events (avoid duplicate display)
     const nonFeaturedEvents = events.filter(event => !event.is_featured);
     
     if (nonFeaturedEvents.length === 0) {
         container.innerHTML = `
             <div class="no-events">
-                <i class="fas fa-info-circle"></i>
-                <p>暂无其他活动</p>
+                <span class="no-events-icon">ℹ</span>
+                <p>No other events available</p>
             </div>
         `;
         return;
@@ -223,21 +223,21 @@ function displayAllEvents(events) {
     container.innerHTML = nonFeaturedEvents.map(event => createEventCard(event)).join('');
 }
 
-// 显示错误信息
+// Display error message
 function displayError(containerId, message) {
     const container = document.getElementById(containerId);
     if (container) {
         container.innerHTML = `
             <div class="error-message">
-                <i class="fas fa-exclamation-triangle"></i>
+                <span class="error-icon">⚠</span>
                 <p>${message}</p>
-                <button class="btn btn-primary" onclick="location.reload()">重新加载</button>
+                <button class="btn btn-primary" onclick="location.reload()">Reload</button>
             </div>
         `;
     }
 }
 
-// 联系表单处理
+// Contact form handling
 document.addEventListener('DOMContentLoaded', function() {
     const contactForm = document.getElementById('contact-form');
     if (contactForm) {
@@ -245,7 +245,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
-// 处理联系表单提交
+// Handle contact form submission
 async function handleContactForm(event) {
     event.preventDefault();
     
@@ -256,36 +256,36 @@ async function handleContactForm(event) {
         message: formData.get('message')
     };
     
-    // 验证表单数据
+    // Validate form data
     if (!data.name.trim() || !data.email.trim() || !data.message.trim()) {
-        showError('请填写所有必填字段');
+        showError('Please fill in all required fields');
         return;
     }
     
     if (!isValidEmail(data.email)) {
-        showError('请输入有效的邮箱地址');
+        showError('Please enter a valid email address');
         return;
     }
     
-    // 模拟表单提交（实际项目中应该发送到服务器）
+    // Simulate form submission (in real project should send to server)
     try {
-        // 这里可以添加实际的API调用
-        await new Promise(resolve => setTimeout(resolve, 1000)); // 模拟网络延迟
+        // Add actual API call here
+        await new Promise(resolve => setTimeout(resolve, 1000)); // Simulate network delay
         
-        showSuccess('消息发送成功！我们会尽快回复您。');
+        showSuccess('Message sent successfully! We will get back to you soon.');
         event.target.reset();
     } catch (error) {
-        showError('发送失败，请稍后重试');
+        showError('Failed to send message, please try again later');
     }
 }
 
-// 验证邮箱格式
+// Validate email format
 function isValidEmail(email) {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return emailRegex.test(email);
 }
 
-// 页面滚动动画
+// Page scroll animations
 function setupScrollAnimations() {
     const observerOptions = {
         threshold: 0.1,
@@ -300,21 +300,21 @@ function setupScrollAnimations() {
         });
     }, observerOptions);
     
-    // 观察需要动画的元素
+    // Observe elements that need animation
     document.querySelectorAll('.stat-item, .event-card, .feature').forEach(el => {
         observer.observe(el);
     });
 }
 
-// 在页面加载完成后设置滚动动画
+// Set up scroll animations after page loads
 document.addEventListener('DOMContentLoaded', function() {
-    // 延迟设置动画，确保内容已加载
+    // Delay setting up animations to ensure content is loaded
     setTimeout(setupScrollAnimations, 1000);
 });
 
-// 搜索功能快捷键
+// Search function shortcut keys
 document.addEventListener('keydown', function(event) {
-    // Ctrl+K 快速跳转到搜索页面
+    // Ctrl+K to quickly navigate to search page
     if (event.ctrlKey && event.key === 'k') {
         event.preventDefault();
         window.location.href = '/search';
