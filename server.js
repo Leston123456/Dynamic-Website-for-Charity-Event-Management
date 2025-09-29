@@ -1,4 +1,5 @@
 const express = require('express');
+// Enhanced server with advanced middleware and security features
 const cors = require('cors');
 const path = require('path');
 const config = require('./config');

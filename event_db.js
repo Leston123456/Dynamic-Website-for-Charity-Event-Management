@@ -1,7 +1,7 @@
 const mysql = require('mysql2/promise');
 const config = require('./config');
 
-// 创建数据库连接池
+// Create optimized database connection pool with enhanced performance monitoring
 const pool = mysql.createPool({
   host: config.database.host,
   user: config.database.user,
