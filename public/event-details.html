@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>活动详情 - 慈善活动管理系统</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/event-details.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- 导航栏 -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-heart"></i>
+                <span>慈善活动管理</span>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="/" class="nav-link">首页</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/search" class="nav-link">搜索活动</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/#about" class="nav-link">关于我们</a>
+                </li>
+                <li class="nav-item">
+                    <a href="/#contact" class="nav-link">联系我们</a>
+                </li>
+            </ul>
+            <div class="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 返回按钮 -->
+    <div class="back-navigation">
+        <div class="container">
+            <button class="back-btn" onclick="goBack()">
+                <i class="fas fa-arrow-left"></i>
+                返回
+            </button>
+            <div class="breadcrumb">
+                <a href="/">首页</a>
+                <span class="separator">/</span>
+                <a href="/search">搜索活动</a>
+                <span class="separator">/</span>
+                <span id="breadcrumb-event-name">活动详情</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 活动详情主要内容 -->
+    <main class="event-details-main">
+        <div class="container">
+            <!-- 加载状态 -->
+            <div class="loading-container" id="loading-container">
+                <div class="loading">
+                    <i class="fas fa-spinner fa-spin"></i>
+                    <span>正在加载活动详情...</span>
+                </div>
+            </div>
+
+            <!-- 错误状态 -->
+            <div class="error-container" id="error-container" style="display: none;">
+                <div class="error-content">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <h2>加载失败</h2>
+                    <p id="error-message">活动详情加载失败，请稍后重试</p>
+                    <div class="error-actions">
+                        <button class="btn btn-primary" onclick="retryLoad()">重新加载</button>
+                        <a href="/" class="btn btn-secondary">返回首页</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 活动详情内容 -->
+            <div class="event-details-content" id="event-details-content" style="display: none;">
+                <!-- 活动头部 -->
+                <header class="event-header">
+                    <div class="event-hero">
+                        <div class="event-image">
+                            <div class="event-image-placeholder">
+                                <i class="fas fa-heart"></i>
+                            </div>
+                            <div class="event-badges">
+                                <span class="event-status" id="event-status-badge"></span>
+                                <span class="event-featured" id="event-featured-badge" style="display: none;">精选活动</span>
+                            </div>
+                        </div>
+                        <div class="event-info">
+                            <div class="event-category" id="event-category"></div>
+                            <h1 class="event-title" id="event-title"></h1>
+                            <div class="event-organization">
+                                <i class="fas fa-users"></i>
+                                <span id="event-organization"></span>
+                            </div>
+                            <div class="event-meta">
+                                <div class="meta-item">
+                                    <i class="fas fa-calendar"></i>
+                                    <span id="event-date"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-map-marker-alt"></i>
+                                    <span id="event-location"></span>
+                                </div>
+                                <div class="meta-item">
+                                    <i class="fas fa-ticket-alt"></i>
+                                    <span id="event-price"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </header>
+
+                <!-- 活动内容 -->
+                <div class="event-content">
+                    <div class="content-grid">
+                        <!-- 左侧主要内容 -->
+                        <div class="main-content">
+                            <!-- 活动描述 -->
+                            <section class="content-section">
+                                <h2>
+                                    <i class="fas fa-info-circle"></i>
+                                    活动详情
+                                </h2>
+                                <div class="event-description" id="event-description"></div>
+                            </section>
+
+                            <!-- 活动地址 -->
+                            <section class="content-section" id="event-address-section">
+                                <h2>
+                                    <i class="fas fa-map-marked-alt"></i>
+                                    活动地址
+                                </h2>
+                                <div class="address-info">
+                                    <p id="event-address"></p>
+                                    <button class="btn btn-outline" onclick="openMap()">
+                                        <i class="fas fa-external-link-alt"></i>
+                                        在地图中查看
+                                    </button>
+                                </div>
+                            </section>
+
+                            <!-- 组织信息 -->
+                            <section class="content-section">
+                                <h2>
+                                    <i class="fas fa-building"></i>
+                                    主办方信息
+                                </h2>
+                                <div class="organization-info" id="organization-info">
+                                    <!-- 组织信息将通过JavaScript动态加载 -->
+                                </div>
+                            </section>
+                        </div>
+
+                        <!-- 右侧侧边栏 -->
+                        <div class="sidebar">
+                            <!-- 筹款进度 -->
+                            <div class="sidebar-card">
+                                <h3>
+                                    <i class="fas fa-chart-line"></i>
+                                    筹款进度
+                                </h3>
+                                <div class="progress-details">
+                                    <div class="progress-stats">
+                                        <div class="stat">
+                                            <span class="stat-value" id="current-amount"></span>
+                                            <span class="stat-label">已筹集</span>
+                                        </div>
+                                        <div class="stat">
+                                            <span class="stat-value" id="goal-amount"></span>
+                                            <span class="stat-label">目标金额</span>
+                                        </div>
+                                    </div>
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar">
+                                            <div class="progress-fill" id="progress-fill"></div>
+                                        </div>
+                                        <span class="progress-percentage" id="progress-percentage"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 参与信息 -->
+                            <div class="sidebar-card" id="participation-card">
+                                <h3>
+                                    <i class="fas fa-users"></i>
+                                    参与信息
+                                </h3>
+                                <div class="participation-info">
+                                    <div class="participation-stats">
+                                        <div class="stat">
+                                            <span class="stat-value" id="current-participants"></span>
+                                            <span class="stat-label">已参与</span>
+                                        </div>
+                                        <div class="stat" id="max-participants-stat">
+                                            <span class="stat-value" id="max-participants"></span>
+                                            <span class="stat-label">最大人数</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 重要时间 -->
+                            <div class="sidebar-card">
+                                <h3>
+                                    <i class="fas fa-clock"></i>
+                                    重要时间
+                                </h3>
+                                <div class="time-info">
+                                    <div class="time-item">
+                                        <span class="time-label">活动开始</span>
+                                        <span class="time-value" id="start-time"></span>
+                                    </div>
+                                    <div class="time-item" id="end-time-item">
+                                        <span class="time-label">活动结束</span>
+                                        <span class="time-value" id="end-time"></span>
+                                    </div>
+                                    <div class="time-item" id="deadline-item">
+                                        <span class="time-label">报名截止</span>
+                                        <span class="time-value" id="registration-deadline"></span>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- 注册按钮 -->
+                            <div class="sidebar-card">
+                                <h3>
+                                    <i class="fas fa-hand-heart"></i>
+                                    参与活动
+                                </h3>
+                                <div class="registration-section">
+                                    <div class="price-display">
+                                        <span class="price-label">参与费用</span>
+                                        <span class="price-value" id="participation-price"></span>
+                                    </div>
+                                    <button class="btn btn-primary btn-register" id="register-btn">
+                                        <i class="fas fa-heart"></i>
+                                        立即参与
+                                    </button>
+                                    <p class="registration-note">
+                                        <i class="fas fa-info-circle"></i>
+                                        点击参与即表示您同意相关条款
+                                    </p>
+                                </div>
+                            </div>
+
+                            <!-- 分享功能 -->
+                            <div class="sidebar-card">
+                                <h3>
+                                    <i class="fas fa-share-alt"></i>
+                                    分享活动
+                                </h3>
+                                <div class="share-buttons">
+                                    <button class="share-btn" onclick="shareEvent('facebook')" title="分享到Facebook">
+                                        <i class="fab fa-facebook"></i>
+                                    </button>
+                                    <button class="share-btn" onclick="shareEvent('twitter')" title="分享到Twitter">
+                                        <i class="fab fa-twitter"></i>
+                                    </button>
+                                    <button class="share-btn" onclick="shareEvent('linkedin')" title="分享到LinkedIn">
+                                        <i class="fab fa-linkedin"></i>
+                                    </button>
+                                    <button class="share-btn" onclick="copyLink()" title="复制链接">
+                                        <i class="fas fa-link"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- 相关活动推荐 -->
+    <section class="related-events" id="related-events" style="display: none;">
+        <div class="container">
+            <h2>相关活动推荐</h2>
+            <div class="related-events-grid" id="related-events-grid">
+                <!-- 相关活动将通过JavaScript动态加载 -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 注册模态框 -->
+    <div class="modal" id="registration-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>活动注册</h3>
+                <button class="modal-close" onclick="closeModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="modal-icon">
+                    <i class="fas fa-construction"></i>
+                </div>
+                <h4>功能开发中</h4>
+                <p>活动注册功能正在开发中，敬请期待！</p>
+                <p>如有疑问，请联系我们的客服团队。</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" onclick="closeModal()">关闭</button>
+                <a href="/#contact" class="btn btn-primary">联系我们</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- 页脚 -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <div class="footer-logo">
+                        <i class="fas fa-heart"></i>
+                        <span>慈善活动管理</span>
+                    </div>
+                    <p>传递爱心，点亮希望。每一份爱心都能创造奇迹。</p>
+                </div>
+                <div class="footer-section">
+                    <h3>快速链接</h3>
+                    <ul>
+                        <li><a href="/">首页</a></li>
+                        <li><a href="/search">搜索活动</a></li>
+                        <li><a href="/#about">关于我们</a></li>
+                        <li><a href="/#contact">联系我们</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>关注我们</h3>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 慈善活动管理系统. 保留所有权利.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="/js/common.js"></script>
+    <script src="/js/event-details.js"></script>
+</body>
+</html>
