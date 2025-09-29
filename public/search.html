@@ -1,33 +1,31 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>搜索活动 - 慈善活动管理系统</title>
+    <title>Search Events - Charity Event Management System</title>
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/search.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="fas fa-heart"></i>
-                <span>慈善活动管理</span>
+                <span>Charity Events</span>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="/" class="nav-link">首页</a>
+                    <a href="/" class="nav-link">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/search" class="nav-link active">搜索活动</a>
+                    <a href="/search" class="nav-link active">Search Events</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/#about" class="nav-link">关于我们</a>
+                    <a href="/#about" class="nav-link">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/#contact" class="nav-link">联系我们</a>
+                    <a href="/#contact" class="nav-link">Contact</a>
                 </li>
             </ul>
             <div class="hamburger">
@@ -38,69 +36,69 @@
         </div>
     </nav>
 
-    <!-- 页面标题 -->
+    <!-- Page Header -->
     <header class="page-header">
         <div class="container">
-            <h1>搜索慈善活动</h1>
-            <p>找到最适合您参与的慈善活动</p>
+            <h1>Search Charity Events</h1>
+            <p>Find the most suitable charity events for your participation</p>
         </div>
     </header>
 
-    <!-- 搜索表单 -->
+    <!-- Search Form -->
     <section class="search-section">
         <div class="container">
             <div class="search-container">
-                <h2>筛选条件</h2>
+                <h2>Filter Criteria</h2>
                 <form id="search-form" class="search-form">
                     <div class="form-grid">
-                        <!-- 日期筛选 -->
+                        <!-- Date Filter -->
                         <div class="form-group">
                             <label for="start-date">
-                                <i class="fas fa-calendar-alt"></i>
-                                开始日期
+                                <span class="label-symbol">📅</span>
+                                Start Date
                             </label>
                             <input type="date" id="start-date" name="startDate">
                         </div>
                         
                         <div class="form-group">
                             <label for="end-date">
-                                <i class="fas fa-calendar-alt"></i>
-                                结束日期
+                                <span class="label-symbol">📅</span>
+                                End Date
                             </label>
                             <input type="date" id="end-date" name="endDate">
                         </div>
 
-                        <!-- 地点筛选 -->
+                        <!-- Location Filter -->
                         <div class="form-group">
                             <label for="location">
-                                <i class="fas fa-map-marker-alt"></i>
-                                地点
+                                <span class="label-symbol">📍</span>
+                                Location
                             </label>
-                            <input type="text" id="location" name="location" placeholder="输入城市或地区">
+                            <input type="text" id="location" name="location" placeholder="Enter city or region">
                         </div>
 
-                        <!-- 分类筛选 -->
+                        <!-- Category Filter -->
                         <div class="form-group">
                             <label for="category">
-                                <i class="fas fa-tags"></i>
-                                活动分类
+                                <span class="label-symbol">🏷️</span>
+                                Event Category
                             </label>
                             <select id="category" name="categoryId">
-                                <option value="">所有分类</option>
-                                <!-- 分类选项将通过JavaScript动态加载 -->
+                                <option value="">All Categories</option>
+                                <!-- Category options will be loaded dynamically -->
                             </select>
                         </div>
                     </div>
 
-                    <!-- 搜索按钮 -->
+                    <!-- Search Buttons -->
                     <div class="search-buttons">
                         <button type="submit" class="btn btn-primary">
-                            <i class="fas fa-search"></i>
-                            搜索活动
+                            <span class="btn-symbol">🔍</span>
+                            Search Events
                         </button>
                         <button type="button" id="clear-filters" class="btn btn-secondary">
-                            <i class="fas fa-times"></i>
-                            清空筛选
+                            <span class="btn-symbol">✖</span>
+                            Clear Filters
                         </button>
                     </div>
                 </form>
@@ -108,123 +106,122 @@
         </div>
     </section>
 
-    <!-- 搜索结果 -->
+    <!-- Search Results -->
     <section class="results-section">
         <div class="container">
             <div class="results-header">
-                <h2>搜索结果</h2>
+                <h2>Search Results</h2>
                 <div class="results-info">
-                    <span id="results-count">请使用上方筛选条件搜索活动</span>
+                    <span id="results-count">Please use the filter criteria above to search for events</span>
                 </div>
             </div>
 
-            <!-- 排序选项 -->
+            <!-- Sort Options -->
             <div class="sort-options" id="sort-options" style="display: none;">
-                <label for="sort-by">排序方式:</label>
+                <label for="sort-by">Sort by:</label>
                 <select id="sort-by">
-                    <option value="date">按日期</option>
-                    <option value="progress">按进度</option>
-                    <option value="price">按价格</option>
-                    <option value="name">按名称</option>
+                    <option value="date">By Date</option>
+                    <option value="progress">By Progress</option>
+                    <option value="price">By Price</option>
+                    <option value="name">By Name</option>
                 </select>
                 <select id="sort-order">
-                    <option value="asc">升序</option>
-                    <option value="desc">降序</option>
+                    <option value="asc">Ascending</option>
+                    <option value="desc">Descending</option>
                 </select>
             </div>
 
-            <!-- 搜索结果列表 -->
+            <!-- Search Results List -->
             <div class="search-results" id="search-results">
                 <div class="welcome-message">
                     <div class="welcome-content">
-                        <i class="fas fa-search"></i>
-                        <h3>欢迎使用搜索功能</h3>
-                        <p>请使用上方的筛选条件来查找您感兴趣的慈善活动。您可以按日期、地点或活动分类进行筛选。</p>
+                        <span class="welcome-icon">🔍</span>
+                        <h3>Welcome to Search Function</h3>
+                        <p>Please use the filter criteria above to find charity events that interest you. You can filter by date, location, or event category.</p>
                         <div class="search-tips">
-                            <h4>搜索小贴士:</h4>
+                            <h4>Search Tips:</h4>
                             <ul>
-                                <li><i class="fas fa-lightbulb"></i> 可以同时使用多个筛选条件</li>
-                                <li><i class="fas fa-lightbulb"></i> 地点搜索支持模糊匹配</li>
-                                <li><i class="fas fa-lightbulb"></i> 留空所有条件将显示所有活动</li>
+                                <li><span class="tip-symbol">💡</span> You can use multiple filter criteria simultaneously</li>
+                                <li><span class="tip-symbol">💡</span> Location search supports fuzzy matching</li>
+                                <li><span class="tip-symbol">💡</span> Leave all criteria empty to show all events</li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- 加载状态 -->
+            <!-- Loading State -->
             <div class="loading" id="search-loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <span>正在搜索活动...</span>
+                <span class="loading-spinner">⟳</span>
+                <span>Searching events...</span>
             </div>
 
-            <!-- 无结果提示 -->
+            <!-- No Results -->
             <div class="no-results" id="no-results" style="display: none;">
                 <div class="no-results-content">
-                    <i class="fas fa-search-minus"></i>
-                    <h3>没有找到匹配的活动</h3>
-                    <p>请尝试调整您的搜索条件：</p>
+                    <span class="no-results-icon">🔍</span>
+                    <h3>No Matching Events Found</h3>
+                    <p>Please try adjusting your search criteria:</p>
                     <ul>
-                        <li>扩大日期范围</li>
-                        <li>更换搜索地点</li>
-                        <li>选择不同的活动分类</li>
-                        <li>清空所有筛选条件查看全部活动</li>
+                        <li>Expand the date range</li>
+                        <li>Change the search location</li>
+                        <li>Select a different event category</li>
+                        <li>Clear all filters to view all events</li>
                     </ul>
                     <button class="btn btn-primary" onclick="clearAllFilters()">
-                        查看所有活动
+                        View All Events
                     </button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 快速搜索建议 -->
+    <!-- Quick Search Suggestions -->
     <section class="quick-search">
         <div class="container">
-            <h3>热门搜索</h3>
+            <h3>Popular Searches</h3>
             <div class="quick-search-tags">
-                <button class="tag-btn" onclick="quickSearch('', '', '1')">慈善晚宴</button>
-                <button class="tag-btn" onclick="quickSearch('', '', '2')">义跑活动</button>
-                <button class="tag-btn" onclick="quickSearch('', '悉尼', '')">悉尼活动</button>
-                <button class="tag-btn" onclick="quickSearch('', '墨尔本', '')">墨尔本活动</button>
-                <button class="tag-btn" onclick="quickSearch('', '', '4')">音乐会</button>
-                <button class="tag-btn" onclick="quickSearch('', '', '5')">义卖活动</button>
+                <button class="tag-btn" onclick="quickSearch('', '', '1')">Charity Gala</button>
+                <button class="tag-btn" onclick="quickSearch('', '', '2')">Charity Run</button>
+                <button class="tag-btn" onclick="quickSearch('', 'Sydney', '')">Sydney Events</button>
+                <button class="tag-btn" onclick="quickSearch('', 'Melbourne', '')">Melbourne Events</button>
+                <button class="tag-btn" onclick="quickSearch('', '', '4')">Concert</button>
+                <button class="tag-btn" onclick="quickSearch('', '', '5')">Charity Sale</button>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <i class="fas fa-heart"></i>
-                        <span>慈善活动管理</span>
+                        <span>Charity Events</span>
                     </div>
-                    <p>传递爱心，点亮希望。每一份爱心都能创造奇迹。</p>
+                    <p>Spreading love, lighting hope. Every act of kindness can create miracles.</p>
                 </div>
                 <div class="footer-section">
-                    <h3>快速链接</h3>
+                    <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="/">首页</a></li>
-                        <li><a href="/search">搜索活动</a></li>
-                        <li><a href="/#about">关于我们</a></li>
-                        <li><a href="/#contact">联系我们</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/search">Search Events</a></li>
+                        <li><a href="/#about">About Us</a></li>
+                        <li><a href="/#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>关注我们</h3>
+                    <h3>Follow Us</h3>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link">F</a>
+                        <a href="#" class="social-link">T</a>
+                        <a href="#" class="social-link">I</a>
+                        <a href="#" class="social-link">L</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 慈善活动管理系统. 保留所有权利.</p>
+                <p>&copy; 2025 Charity Event Management System. All rights reserved.</p>
             </div>
         </div>
     </footer>

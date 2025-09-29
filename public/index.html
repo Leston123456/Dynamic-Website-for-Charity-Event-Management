@@ -1,32 +1,30 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>慈善活动管理系统 - 传递爱心，点亮希望</title>
+    <title>Charity Event Management System - Spreading Love, Lighting Hope</title>
     <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
 </head>
 <body>
-    <!-- 导航栏 -->
+    <!-- Navigation -->
     <nav class="navbar">
         <div class="nav-container">
             <div class="nav-logo">
-                <i class="fas fa-heart"></i>
-                <span>慈善活动管理</span>
+                <span>Charity Events</span>
             </div>
             <ul class="nav-menu">
                 <li class="nav-item">
-                    <a href="/" class="nav-link active">首页</a>
+                    <a href="/" class="nav-link active">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a href="/search" class="nav-link">搜索活动</a>
+                    <a href="/search" class="nav-link">Search Events</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#about" class="nav-link">关于我们</a>
+                    <a href="#about" class="nav-link">About Us</a>
                 </li>
                 <li class="nav-item">
-                    <a href="#contact" class="nav-link">联系我们</a>
+                    <a href="#contact" class="nav-link">Contact</a>
                 </li>
             </ul>
             <div class="hamburger">
@@ -37,184 +35,183 @@
         </div>
     </nav>
 
-    <!-- 主横幅 -->
+    <!-- Hero Section -->
     <header class="hero">
         <div class="hero-content">
             <div class="hero-text">
-                <h1>传递爱心，点亮希望</h1>
-                <p>加入我们的慈善活动，为需要帮助的人们带去温暖与关爱。每一份爱心都能创造奇迹，每一次行动都能改变世界。</p>
+                <h1>Spreading Love, Lighting Hope</h1>
+                <p>Join our charity events to bring warmth and care to those in need. Every act of kindness can create miracles, and every action can change the world.</p>
                 <div class="hero-buttons">
-                    <a href="#events" class="btn btn-primary">查看活动</a>
-                    <a href="/search" class="btn btn-secondary">搜索活动</a>
+                    <a href="#events" class="btn btn-primary">View Events</a>
+                    <a href="/search" class="btn btn-secondary">Search Events</a>
                 </div>
             </div>
             <div class="hero-image">
-                <i class="fas fa-hands-helping"></i>
+                <div class="hero-placeholder">CHARITY</div>
             </div>
         </div>
     </header>
 
-    <!-- 统计信息 -->
+    <!-- Statistics -->
     <section class="stats">
         <div class="container">
             <div class="stats-grid">
                 <div class="stat-item">
                     <div class="stat-icon">
-                        <i class="fas fa-calendar-check"></i>
+                        <span class="stat-symbol">•</span>
                     </div>
                     <div class="stat-content">
                         <h3 id="total-events">--</h3>
-                        <p>活跃活动</p>
+                        <p>Active Events</p>
                     </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-icon">
-                        <i class="fas fa-dollar-sign"></i>
+                        <span class="stat-symbol">$</span>
                     </div>
                     <div class="stat-content">
                         <h3 id="total-funds">--</h3>
-                        <p>筹集资金</p>
+                        <p>Funds Raised</p>
                     </div>
                 </div>
                 <div class="stat-item">
                     <div class="stat-icon">
-                        <i class="fas fa-users"></i>
+                        <span class="stat-symbol">★</span>
                     </div>
                     <div class="stat-content">
                         <h3 id="total-participants">--</h3>
-                        <p>参与人数</p>
+                        <p>Participants</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 精选活动 -->
+    <!-- Featured Events -->
     <section class="featured-events">
         <div class="container">
             <div class="section-header">
-                <h2>精选活动</h2>
-                <p>这些特别推荐的慈善活动正等待您的参与</p>
+                <h2>Featured Events</h2>
+                <p>These specially recommended charity events are waiting for your participation</p>
             </div>
             <div class="events-grid" id="featured-events-grid">
-                <!-- 精选活动将通过JavaScript动态加载 -->
+                <!-- Featured events will be loaded dynamically -->
             </div>
         </div>
     </section>
 
-    <!-- 所有活动 -->
+    <!-- All Events -->
     <section class="all-events" id="events">
         <div class="container">
             <div class="section-header">
-                <h2>所有活动</h2>
-                <p>浏览我们的所有慈善活动，找到最适合您的参与方式</p>
+                <h2>All Events</h2>
+                <p>Browse all our charity events and find the best way for you to participate</p>
             </div>
             <div class="events-grid" id="all-events-grid">
-                <!-- 所有活动将通过JavaScript动态加载 -->
+                <!-- All events will be loaded dynamically -->
             </div>
             <div class="loading" id="loading">
-                <i class="fas fa-spinner fa-spin"></i>
-                <span>正在加载活动...</span>
+                <span class="loading-spinner">⟳</span>
+                <span>Loading events...</span>
             </div>
         </div>
     </section>
 
-    <!-- 关于我们 -->
+    <!-- About Us -->
     <section class="about" id="about">
         <div class="container">
             <div class="about-content">
                 <div class="about-text">
-                    <h2>关于我们</h2>
+                    <h2>About Us</h2>
                     <div id="organization-info">
-                        <!-- 组织信息将通过JavaScript动态加载 -->
+                        <!-- Organization info will be loaded dynamically -->
                     </div>
                     <div class="about-features">
                         <div class="feature">
-                            <i class="fas fa-shield-alt"></i>
-                            <h3>透明可信</h3>
-                            <p>所有资金使用透明公开，接受社会监督</p>
+                            <span class="feature-symbol">✓</span>
+                            <h3>Transparent & Trustworthy</h3>
+                            <p>All fund usage is transparent and open to public supervision</p>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-heart"></i>
-                            <h3>专业服务</h3>
-                            <p>专业的团队为您提供最好的慈善体验</p>
+                            <span class="feature-symbol">♥</span>
+                            <h3>Professional Service</h3>
+                            <p>Professional team provides you with the best charity experience</p>
                         </div>
                         <div class="feature">
-                            <i class="fas fa-globe"></i>
-                            <h3>社会影响</h3>
-                            <p>每一份捐助都会产生积极的社会影响</p>
+                            <span class="feature-symbol">●</span>
+                            <h3>Social Impact</h3>
+                            <p>Every donation creates positive social impact</p>
                         </div>
                     </div>
                 </div>
                 <div class="about-image">
-                    <i class="fas fa-hands-heart"></i>
+                    <div class="about-placeholder">HELP</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 联系我们 -->
+    <!-- Contact Us -->
     <section class="contact" id="contact">
         <div class="container">
             <div class="contact-content">
                 <div class="contact-info">
-                    <h2>联系我们</h2>
-                    <p>如有任何疑问或建议，请随时与我们联系</p>
+                    <h2>Contact Us</h2>
+                    <p>If you have any questions or suggestions, please feel free to contact us</p>
                     <div class="contact-details" id="contact-details">
-                        <!-- 联系信息将通过JavaScript动态加载 -->
+                        <!-- Contact info will be loaded dynamically -->
                     </div>
                 </div>
                 <div class="contact-form">
-                    <h3>发送消息</h3>
+                    <h3>Send Message</h3>
                     <form id="contact-form">
                         <div class="form-group">
-                            <input type="text" id="name" name="name" placeholder="您的姓名" required>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
                         </div>
                         <div class="form-group">
-                            <input type="email" id="email" name="email" placeholder="您的邮箱" required>
+                            <input type="email" id="email" name="email" placeholder="Your Email" required>
                         </div>
                         <div class="form-group">
-                            <textarea id="message" name="message" rows="5" placeholder="您的消息" required></textarea>
+                            <textarea id="message" name="message" rows="5" placeholder="Your Message" required></textarea>
                         </div>
-                        <button type="submit" class="btn btn-primary">发送消息</button>
+                        <button type="submit" class="btn btn-primary">Send Message</button>
                     </form>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- 页脚 -->
+    <!-- Footer -->
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <i class="fas fa-heart"></i>
-                        <span>慈善活动管理</span>
+                        <span>Charity Events</span>
                     </div>
-                    <p>传递爱心，点亮希望。每一份爱心都能创造奇迹。</p>
+                    <p>Spreading love, lighting hope. Every act of kindness can create miracles.</p>
                 </div>
                 <div class="footer-section">
-                    <h3>快速链接</h3>
+                    <h3>Quick Links</h3>
                     <ul>
-                        <li><a href="/">首页</a></li>
-                        <li><a href="/search">搜索活动</a></li>
-                        <li><a href="#about">关于我们</a></li>
-                        <li><a href="#contact">联系我们</a></li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/search">Search Events</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#contact">Contact</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>关注我们</h3>
+                    <h3>Follow Us</h3>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="social-link">F</a>
+                        <a href="#" class="social-link">T</a>
+                        <a href="#" class="social-link">I</a>
+                        <a href="#" class="social-link">L</a>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 慈善活动管理系统. 保留所有权利.</p>
+                <p>&copy; 2025 Charity Event Management System. All rights reserved.</p>
             </div>
         </div>
     </footer>
