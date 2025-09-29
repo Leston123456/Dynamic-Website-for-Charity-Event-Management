@@ -63,10 +63,6 @@ body {
     color: var(--primary-color);
 }
 
-.nav-logo i {
-    margin-right: 10px;
-    font-size: 1.8rem;
-}
 
 .nav-menu {
     display: flex;
@@ -157,9 +153,13 @@ body {
     text-align: center;
 }
 
-.hero-image i {
-    font-size: 12rem;
+.hero-placeholder,
+.about-placeholder {
+    font-size: 3rem;
+    font-weight: bold;
     opacity: 0.8;
+    text-align: center;
+    padding: 3rem;
 }
 
 /* 按钮样式 */
@@ -244,6 +244,17 @@ body {
     justify-content: center;
     margin: 0 auto 1rem;
     font-size: 1.5rem;
+}
+
+.stat-symbol,
+.feature-symbol,
+.event-symbol,
+.contact-symbol,
+.alert-symbol,
+.btn-symbol,
+.loading-spinner {
+    font-size: inherit;
+    margin-right: 0.5rem;
 }
 
 .stat-content h3 {
@@ -450,10 +461,16 @@ body {
     display: block;
 }
 
-.loading i {
+.loading .loading-spinner {
     font-size: 2rem;
     margin-bottom: 1rem;
     color: var(--primary-color);
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    from { transform: rotate(0deg); }
+    to { transform: rotate(360deg); }
 }
 
 /* 关于我们 */
@@ -491,7 +508,7 @@ body {
     gap: 1rem;
 }
 
-.feature i {
+.feature .feature-symbol {
     color: var(--primary-color);
     font-size: 1.5rem;
     margin-top: 0.2rem;
@@ -512,11 +529,6 @@ body {
     text-align: center;
 }
 
-.about-image i {
-    font-size: 8rem;
-    color: var(--primary-color);
-    opacity: 0.8;
-}
 
 /* 联系我们 */
 .contact {
@@ -553,7 +565,7 @@ body {
     gap: 1rem;
 }
 
-.contact-item i {
+.contact-item .contact-symbol {
     color: var(--primary-color);
     font-size: 1.2rem;
     width: 20px;
@@ -627,10 +639,6 @@ body {
     margin-bottom: 1rem;
 }
 
-.footer-logo i {
-    margin-right: 10px;
-    font-size: 1.8rem;
-}
 
 .footer-section p {
     margin-bottom: 1rem;

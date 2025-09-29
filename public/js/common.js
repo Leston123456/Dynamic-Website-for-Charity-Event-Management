@@ -1,9 +1,9 @@
-// 通用JavaScript功能
+// Common JavaScript functionality
 
-// API基础URL
+// API base URL
 const API_BASE_URL = '/api';
 
-// 通用API请求函数
+// Common API request function
 async function apiRequest(endpoint, options = {}) {
     try {
         const url = `${API_BASE_URL}${endpoint}`;
@@ -23,12 +23,12 @@ async function apiRequest(endpoint, options = {}) {
         
         return data;
     } catch (error) {
-        console.error('API请求错误:', error);
+        console.error('API request error:', error);
         throw error;
     }
 }
 
-// 显示加载状态
+// Show loading state
 function showLoading(elementId) {
     const element = document.getElementById(elementId);
     if (element) {
@@ -36,7 +36,7 @@ function showLoading(elementId) {
     }
 }
 
-// 隐藏加载状态
+// Hide loading state
 function hideLoading(elementId) {
     const element = document.getElementById(elementId);
     if (element) {
@@ -44,12 +44,12 @@ function hideLoading(elementId) {
     }
 }
 
-// 显示错误消息
+// Show error message
 function showError(message, containerId = null) {
     const alertDiv = document.createElement('div');
     alertDiv.className = 'alert alert-error';
     alertDiv.innerHTML = `
-        <i class="fas fa-exclamation-triangle"></i>
+        <span class="alert-symbol">⚠</span>
         ${message}
     `;
     
@@ -62,18 +62,18 @@ function showError(message, containerId = null) {
         document.body.insertBefore(alertDiv, document.body.firstChild);
     }
     
-    // 3秒后自动隐藏
+    // Auto hide after 3 seconds
     setTimeout(() => {
         alertDiv.remove();
     }, 3000);
 }
 
-// 显示成功消息
+// Show success message
 function showSuccess(message, containerId = null) {
     const alertDiv = document.createElement('div');
     alertDiv.className = 'alert alert-success';
     alertDiv.innerHTML = `
-        <i class="fas fa-check-circle"></i>
+        <span class="alert-symbol">✓</span>
         ${message}
     `;
     
@@ -86,13 +86,13 @@ function showSuccess(message, containerId = null) {
         document.body.insertBefore(alertDiv, document.body.firstChild);
     }
     
-    // 3秒后自动隐藏
+    // Auto hide after 3 seconds
     setTimeout(() => {
         alertDiv.remove();
     }, 3000);
 }
 
-// 格式化日期
+// Format date
 function formatDate(dateString) {
     const date = new Date(dateString);
     const options = {
@@ -102,10 +102,10 @@ function formatDate(dateString) {
         hour: '2-digit',
         minute: '2-digit'
     };
-    return date.toLocaleDateString('zh-CN', options);
+    return date.toLocaleDateString('en-US', options);
 }
 
-// 格式化简短日期
+// Format short date
 function formatShortDate(dateString) {
     const date = new Date(dateString);
     const options = {
@@ -114,37 +114,37 @@ function formatShortDate(dateString) {
         hour: '2-digit',
         minute: '2-digit'
     };
-    return date.toLocaleDateString('zh-CN', options);
+    return date.toLocaleDateString('en-US', options);
 }
 
-// 格式化金额
+// Format currency
 function formatCurrency(amount) {
-    if (amount === 0) return '免费';
-    return `¥${parseFloat(amount).toLocaleString('zh-CN', {
+    if (amount === 0) return 'Free';
+    return `$${parseFloat(amount).toLocaleString('en-US', {
         minimumFractionDigits: 0,
         maximumFractionDigits: 2
     })}`;
 }
 
-// 格式化大数字
+// Format large numbers
 function formatLargeNumber(num) {
-    if (num >= 10000) {
-        return (num / 10000).toFixed(1) + '万';
+    if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
     }
-    return num.toLocaleString('zh-CN');
+    return num.toLocaleString('en-US');
 }
 
-// 获取事件状态文本
+// Get event status text
 function getEventStatusText(status) {
     const statusMap = {
-        'upcoming': '即将开始',
-        'ongoing': '进行中',
-        'past': '已结束'
+        'upcoming': 'Upcoming',
+        'ongoing': 'Ongoing',
+        'past': 'Past'
     };
     return statusMap[status] || status;
 }
 
-// 创建活动卡片HTML
+// Create event card HTML
 function createEventCard(event) {
     const progressPercentage = event.progress_percentage || 0;
     const statusText = getEventStatusText(event.event_status);
@@ -152,8 +152,8 @@ function createEventCard(event) {
     return `
         <div class="event-card" onclick="goToEventDetails(${event.id})">
             <div class="event-image">
-                <i class="fas fa-heart"></i>
-                ${event.is_featured ? '<span class="event-featured">精选</span>' : ''}
+                <span class="event-icon">♥</span>
+                ${event.is_featured ? '<span class="event-featured">Featured</span>' : ''}
                 <span class="event-status ${event.event_status}">${statusText}</span>
             </div>
             <div class="event-content">
@@ -162,17 +162,17 @@ function createEventCard(event) {
                 <p class="event-description">${event.description}</p>
                 <div class="event-details">
                     <span class="event-date">
-                        <i class="fas fa-calendar"></i>
+                        <span class="event-symbol">📅</span>
                         ${formatShortDate(event.event_date)}
                     </span>
                     <span class="event-location">
-                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="event-symbol">📍</span>
                         ${event.location}
                     </span>
                 </div>
                 <div class="event-progress">
                     <div class="progress-info">
-                        <span>筹款进度</span>
+                        <span>Fundraising Progress</span>
                         <span>${progressPercentage.toFixed(1)}%</span>
                     </div>
                     <div class="progress-bar">
@@ -180,27 +180,27 @@ function createEventCard(event) {
                     </div>
                     <div class="progress-info">
                         <span>${formatCurrency(event.current_amount)}</span>
-                        <span>目标: ${formatCurrency(event.goal_amount)}</span>
+                        <span>Goal: ${formatCurrency(event.goal_amount)}</span>
                     </div>
                 </div>
                 <div class="event-organization">
-                    <i class="fas fa-users"></i>
+                    <span class="event-symbol">👥</span>
                     ${event.organization_name}
                 </div>
                 <div class="event-price">
-                    参与费用: ${formatCurrency(event.ticket_price)}
+                    Participation Fee: ${formatCurrency(event.ticket_price)}
                 </div>
             </div>
         </div>
     `;
 }
 
-// 跳转到活动详情页面
+// Navigate to event details page
 function goToEventDetails(eventId) {
     window.location.href = `/event/${eventId}`;
 }
 
-// 平滑滚动到指定元素
+// Smooth scroll to specified element
 function scrollToElement(elementId) {
     const element = document.getElementById(elementId);
     if (element) {
@@ -211,7 +211,7 @@ function scrollToElement(elementId) {
     }
 }
 
-// 防抖函数
+// Debounce function
 function debounce(func, wait) {
     let timeout;
     return function executedFunction(...args) {
@@ -224,7 +224,7 @@ function debounce(func, wait) {
     };
 }
 
-// 节流函数
+// Throttle function
 function throttle(func, limit) {
     let inThrottle;
     return function() {
@@ -238,7 +238,7 @@ function throttle(func, limit) {
     }
 }
 
-// 移动端导航菜单切换
+// Mobile navigation menu toggle
 document.addEventListener('DOMContentLoaded', function() {
     const hamburger = document.querySelector('.hamburger');
     const navMenu = document.querySelector('.nav-menu');
@@ -249,14 +249,14 @@ document.addEventListener('DOMContentLoaded', function() {
             navMenu.classList.toggle('active');
         });
         
-        // 点击菜单项时关闭移动菜单
+        // Close mobile menu when clicking menu items
         document.querySelectorAll('.nav-link').forEach(n => n.addEventListener('click', () => {
             hamburger.classList.remove('active');
             navMenu.classList.remove('active');
         }));
     }
     
-    // 平滑滚动到锚点
+    // Smooth scroll to anchor
     document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function (e) {
             e.preventDefault();
@@ -270,7 +270,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // 导航栏滚动效果
+    // Navigation bar scroll effect
     let lastScrollTop = 0;
     const navbar = document.querySelector('.navbar');
     
@@ -278,14 +278,14 @@ document.addEventListener('DOMContentLoaded', function() {
         const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         
         if (scrollTop > lastScrollTop && scrollTop > 100) {
-            // 向下滚动时隐藏导航栏
+            // Hide navigation bar when scrolling down
             navbar.style.transform = 'translateY(-100%)';
         } else {
-            // 向上滚动时显示导航栏
+            // Show navigation bar when scrolling up
             navbar.style.transform = 'translateY(0)';
         }
         
-        // 添加背景模糊效果
+        // Add background blur effect
         if (scrollTop > 50) {
             navbar.style.backdropFilter = 'blur(10px)';
             navbar.style.backgroundColor = 'rgba(255, 255, 255, 0.9)';
@@ -298,12 +298,12 @@ document.addEventListener('DOMContentLoaded', function() {
     }, 100));
 });
 
-// 全局错误处理
+// Global error handling
 window.addEventListener('error', function(event) {
-    console.error('页面错误:', event.error);
+    console.error('Page error:', event.error);
 });
 
 window.addEventListener('unhandledrejection', function(event) {
-    console.error('未处理的Promise拒绝:', event.reason);
+    console.error('Unhandled Promise rejection:', event.reason);
     event.preventDefault();
 });
