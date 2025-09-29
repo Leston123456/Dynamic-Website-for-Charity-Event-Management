@@ -15,21 +15,21 @@ const pool = mysql.createPool({
   reconnect: true
 });
 
-// 测试数据库连接
+// Test database connection
 async function testConnection() {
   try {
     const connection = await pool.getConnection();
-    console.log('数据库连接成功！');
+    console.log('Database connection successful!');
     console.log('Connected to MySQL database:', config.database.database);
     connection.release();
     return true;
   } catch (error) {
-    console.error('数据库连接失败:', error.message);
+    console.error('Database connection failed:', error.message);
     return false;
   }
 }
 
-// 获取所有活跃的慈善活动
+// Get all active charity events
 async function getAllActiveEvents() {
   try {
     const [rows] = await pool.execute(`
@@ -63,12 +63,12 @@ async function getAllActiveEvents() {
     `);
     return rows;
   } catch (error) {
-    console.error('获取活动列表失败:', error);
+    console.error('Failed to get events list:', error);
     throw error;
   }
 }
 
-// 根据ID获取特定活动详情
+// Get specific event details by ID
 async function getEventById(eventId) {
   try {
     const [rows] = await pool.execute(`
@@ -95,12 +95,12 @@ async function getEventById(eventId) {
     
     return rows.length > 0 ? rows[0] : null;
   } catch (error) {
-    console.error('获取活动详情失败:', error);
+    console.error('Failed to get event details:', error);
     throw error;
   }
 }
 
-// 搜索活动（根据日期、地点、分类）
+// Search events (by date, location, category)
 async function searchEvents(filters) {
   try {
     let query = `
@@ -131,7 +131,7 @@ async function searchEvents(filters) {
     
     const params = [];
     
-    // 按日期筛选
+    // Filter by date
     if (filters.startDate) {
       query += ` AND e.event_date >= ?`;
       params.push(filters.startDate);
@@ -142,13 +142,13 @@ async function searchEvents(filters) {
       params.push(filters.endDate + ' 23:59:59');
     }
     
-    // 按地点筛选
+    // Filter by location
     if (filters.location) {
       query += ` AND e.location LIKE ?`;
       params.push(`%${filters.location}%`);
     }
     
-    // 按分类筛选
+    // Filter by category
     if (filters.categoryId) {
       query += ` AND e.category_id = ?`;
       params.push(filters.categoryId);
@@ -159,12 +159,12 @@ async function searchEvents(filters) {
     const [rows] = await pool.execute(query, params);
     return rows;
   } catch (error) {
-    console.error('搜索活动失败:', error);
+    console.error('Failed to search events:', error);
     throw error;
   }
 }
 
-// 获取所有活动分类
+// Get all event categories
 async function getAllCategories() {
   try {
     const [rows] = await pool.execute(`
@@ -174,12 +174,12 @@ async function getAllCategories() {
     `);
     return rows;
   } catch (error) {
-    console.error('获取分类列表失败:', error);
+    console.error('Failed to get categories list:', error);
     throw error;
   }
 }
 
-// 获取组织信息
+// Get organization information
 async function getOrganizationInfo() {
   try {
     const [rows] = await pool.execute(`
@@ -189,12 +189,12 @@ async function getOrganizationInfo() {
     `);
     return rows.length > 0 ? rows[0] : null;
   } catch (error) {
-    console.error('获取组织信息失败:', error);
+    console.error('Failed to get organization info:', error);
     throw error;
   }
 }
 
-// 获取统计信息
+// Get statistics
 async function getStatistics() {
   try {
     const [totalEvents] = await pool.execute(`
@@ -215,7 +215,7 @@ async function getStatistics() {
       totalParticipants: totalParticipants[0].total || 0
     };
   } catch (error) {
-    console.error('获取统计信息失败:', error);
+    console.error('Failed to get statistics:', error);
     throw error;
   }
 }

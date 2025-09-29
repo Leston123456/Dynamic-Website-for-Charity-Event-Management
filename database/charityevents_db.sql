@@ -1,9 +1,9 @@
--- 慈善活动管理系统数据库
--- 创建数据库
+-- Charity Events Management System Database
+-- Create Database
 CREATE DATABASE IF NOT EXISTS charityevents_db;
 USE charityevents_db;
 
--- 创建慈善组织表
+-- Create Organizations Table
 CREATE TABLE organizations (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
@@ -17,7 +17,7 @@ CREATE TABLE organizations (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 );
 
--- 创建活动分类表
+-- Create Event Categories Table
 CREATE TABLE categories (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL UNIQUE,
@@ -25,7 +25,7 @@ CREATE TABLE categories (
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- 创建慈善活动表
+-- Create Charity Events Table
 CREATE TABLE events (
     id INT AUTO_INCREMENT PRIMARY KEY,
     organization_id INT NOT NULL,
@@ -56,47 +56,47 @@ CREATE TABLE events (
     INDEX idx_category (category_id)
 );
 
--- 插入慈善组织数据
+-- Insert Sample Organizations
 INSERT INTO organizations (name, description, email, phone, address, website, logo_url) VALUES
-('爱心基金会', '致力于帮助贫困儿童教育和医疗的非营利组织', 'info@lovefund.org', '(02) 1234-5678', '悉尼市中心123号', 'https://www.lovefund.org', '/images/love-fund-logo.jpg'),
-('绿色地球协会', '专注于环境保护和可持续发展的公益组织', 'contact@greenearth.org', '(03) 9876-5432', '墨尔本环保大道456号', 'https://www.greenearth.org', '/images/green-earth-logo.jpg'),
-('健康希望联盟', '为癌症患者及家属提供支持和帮助', 'support@healthhope.org', '(07) 5555-1234', '布里斯班医疗区789号', 'https://www.healthhope.org', '/images/health-hope-logo.jpg');
+('Love Foundation', 'Non-profit organization dedicated to helping underprivileged children with education and healthcare', 'info@lovefund.org', '(02) 1234-5678', '123 Central Street, Sydney', 'https://www.lovefund.org', '/images/love-fund-logo.jpg'),
+('Green Earth Society', 'Environmental protection and sustainable development organization', 'contact@greenearth.org', '(03) 9876-5432', '456 Eco Boulevard, Melbourne', 'https://www.greenearth.org', '/images/green-earth-logo.jpg'),
+('Health Hope Alliance', 'Providing support and assistance to cancer patients and their families', 'support@healthhope.org', '(07) 5555-1234', '789 Medical District, Brisbane', 'https://www.healthhope.org', '/images/health-hope-logo.jpg');
 
--- 插入活动分类数据
+-- Insert Event Categories
 INSERT INTO categories (name, description) VALUES
-('慈善晚宴', '正式的筹款晚宴活动，通常包含拍卖环节'),
-('义跑活动', '慈善跑步活动，参与者通过跑步为慈善事业筹款'),
-('静默拍卖', '无声拍卖活动，参与者通过书面出价竞拍物品'),
-('音乐会', '慈善音乐演出，门票收入用于慈善目的'),
-('义卖活动', '物品义卖，所得收入捐给慈善机构'),
-('志愿服务', '社区志愿服务活动'),
-('教育讲座', '慈善教育和意识提升讲座'),
-('体育竞赛', '慈善体育比赛和竞技活动');
+('Charity Gala', 'Formal fundraising dinner events, usually including auction segments'),
+('Charity Run', 'Running events where participants raise funds through their participation'),
+('Silent Auction', 'Silent auction activities where participants bid through written offers'),
+('Concert', 'Charity music performances with ticket proceeds going to charitable causes'),
+('Charity Sale', 'Item sales with proceeds donated to charitable organizations'),
+('Volunteer Service', 'Community volunteer service activities'),
+('Educational Workshop', 'Charity education and awareness-raising workshops'),
+('Sports Competition', 'Charity sports competitions and athletic events');
 
--- 插入慈善活动数据
+-- Insert Sample Charity Events
 INSERT INTO events (organization_id, category_id, name, description, full_description, location, address, event_date, end_date, registration_deadline, ticket_price, goal_amount, current_amount, max_participants, current_participants, image_url, status, is_featured) VALUES
 
-(1, 1, '希望之夜慈善晚宴', '为贫困儿童教育筹款的精美晚宴', '这是一场温馨而富有意义的慈善晚宴，旨在为贫困地区的儿童教育事业筹集资金。晚宴将在豪华酒店举行，包含精美的晚餐、现场拍卖、音乐表演等环节。您的每一份捐助都将直接用于改善贫困儿童的教育条件，为他们提供更好的学习机会和未来。让我们携手为孩子们的明天点亮希望之光。', '悉尼', '悉尼希尔顿酒店大宴会厅', '2025-11-15 18:00:00', '2025-11-15 22:00:00', '2025-11-10 23:59:59', 150.00, 50000.00, 12500.00, 200, 45, '/images/hope-dinner.jpg', 'active', TRUE),
+(1, 1, 'Night of Hope Charity Gala', 'Elegant fundraising dinner for underprivileged children education', 'This is a warm and meaningful charity gala aimed at raising funds for children education in underprivileged areas. The gala will be held at a luxury hotel, featuring exquisite dinner, live auction, musical performances, and more. Every donation will directly contribute to improving educational conditions for underprivileged children, providing them with better learning opportunities and brighter futures. Let us join hands to light up the hope for children tomorrow.', 'Sydney', 'Grand Ballroom, Sydney Hilton Hotel', '2025-11-15 18:00:00', '2025-11-15 22:00:00', '2025-11-10 23:59:59', 150.00, 50000.00, 12500.00, 200, 45, '/images/hope-dinner.jpg', 'active', TRUE),
 
-(2, 2, '绿色奔跑马拉松', '为环境保护事业而跑', '加入我们的绿色马拉松，为地球环境保护贡献力量！这是一场结合健身与公益的活动，参与者可以选择5公里、10公里或半程马拉松距离。活动路线经过悉尼最美丽的公园和海岸线，让您在享受运动乐趣的同时为环保事业筹款。所有参与者将获得纪念T恤和完赛奖牌，让我们一起跑向更绿色的未来！', '悉尼', '悉尼海德公园起点', '2025-10-20 07:00:00', '2025-10-20 12:00:00', '2025-10-15 23:59:59', 35.00, 25000.00, 8750.00, 500, 125, '/images/green-marathon.jpg', 'active', TRUE),
+(2, 2, 'Green Run Marathon', 'Running for environmental protection', 'Join our Green Marathon to contribute to environmental protection! This is an event combining fitness with charity, where participants can choose from 5km, 10km, or half marathon distances. The route passes through Sydney most beautiful parks and coastlines, allowing you to enjoy the fun of sports while raising funds for environmental causes. All participants will receive commemorative T-shirts and completion medals. Let us run together towards a greener future!', 'Sydney', 'Hyde Park Starting Point, Sydney', '2025-10-20 07:00:00', '2025-10-20 12:00:00', '2025-10-15 23:59:59', 35.00, 25000.00, 8750.00, 500, 125, '/images/green-marathon.jpg', 'active', TRUE),
 
-(3, 4, '治愈之声慈善音乐会', '用音乐传递希望与爱', '一场感人至深的慈善音乐会，汇集了澳大利亚最优秀的音乐家和歌手，为癌症研究和患者支持筹款。音乐会将在悉尼歌剧院举行，包含古典音乐、流行歌曲和原创作品。每一个音符都承载着对生命的敬意和对未来的希望。让我们通过音乐的力量，为那些正在与疾病抗争的勇士们送去温暖与支持。', '悉尼', '悉尼歌剧院音乐厅', '2025-12-03 19:30:00', '2025-12-03 22:00:00', '2025-11-25 23:59:59', 80.00, 40000.00, 15200.00, 300, 76, '/images/healing-concert.jpg', 'active', FALSE),
+(3, 4, 'Healing Voices Charity Concert', 'Spreading hope and love through music', 'A deeply moving charity concert featuring Australia finest musicians and singers, raising funds for cancer research and patient support. The concert will be held at Sydney Opera House, featuring classical music, popular songs, and original compositions. Every note carries respect for life and hope for the future. Let us send warmth and support to those brave warriors fighting against disease through the power of music.', 'Sydney', 'Concert Hall, Sydney Opera House', '2025-12-03 19:30:00', '2025-12-03 22:00:00', '2025-11-25 23:59:59', 80.00, 40000.00, 15200.00, 300, 76, '/images/healing-concert.jpg', 'active', FALSE),
 
-(1, 3, '艺术品慈善拍卖', '收藏艺术，传递爱心', '精心策划的艺术品慈善拍卖活动，展示来自本地和国际艺术家的优秀作品。拍卖品包括绘画、雕塑、摄影作品和手工艺品。这不仅是一个收藏艺术品的绝佳机会，更是支持儿童教育事业的良好途径。拍卖所得将全部用于为贫困儿童提供艺术教育资源，让更多孩子接触到艺术的美好。', '墨尔本', '墨尔本艺术中心展览厅', '2025-11-08 14:00:00', '2025-11-08 17:00:00', '2025-11-03 23:59:59', 25.00, 30000.00, 9600.00, 150, 48, '/images/art-auction.jpg', 'active', FALSE),
+(1, 3, 'Art for Charity Auction', 'Collect art, spread love', 'Carefully curated charity art auction showcasing excellent works from local and international artists. Auction items include paintings, sculptures, photography, and handicrafts. This is not only an excellent opportunity to collect artworks but also a great way to support children education. All auction proceeds will be used to provide art education resources for underprivileged children, allowing more children to experience the beauty of art.', 'Melbourne', 'Exhibition Hall, Melbourne Arts Centre', '2025-11-08 14:00:00', '2025-11-08 17:00:00', '2025-11-03 23:59:59', 25.00, 30000.00, 9600.00, 150, 48, '/images/art-auction.jpg', 'active', FALSE),
 
-(2, 5, '绿色生活义卖节', '环保物品义卖集市', '环保主题的义卖活动，销售各种环保产品、有机食品、手工制品和回收再利用的物品。活动旨在推广可持续生活方式，同时为环境保护项目筹款。现场还有环保知识讲座、DIY工作坊和儿童环保游戏，适合全家参与。让我们一起学习如何过更环保的生活，为地球的未来做出贡献。', '布里斯班', '布里斯班南岸公园广场', '2025-10-28 09:00:00', '2025-10-28 16:00:00', '2025-10-25 23:59:59', 0.00, 15000.00, 4500.00, 1000, 180, '/images/green-market.jpg', 'active', FALSE),
+(2, 5, 'Green Living Market', 'Eco-friendly product charity market', 'Environmental-themed market selling various eco-friendly products, organic foods, handicrafts, and recycled items. The event aims to promote sustainable lifestyles while raising funds for environmental protection projects. The venue also features environmental knowledge workshops, DIY workshops, and children eco-games, suitable for the whole family. Let us learn how to live more environmentally friendly and contribute to the future of our planet.', 'Brisbane', 'South Bank Parklands Plaza, Brisbane', '2025-10-28 09:00:00', '2025-10-28 16:00:00', '2025-10-25 23:59:59', 0.00, 15000.00, 4500.00, 1000, 180, '/images/green-market.jpg', 'active', FALSE),
 
-(3, 7, '癌症预防健康讲座', '知识就是最好的预防', '由知名肿瘤专家和营养师主讲的癌症预防健康讲座，内容涵盖癌症预防、早期筛查、健康饮食和生活方式。讲座免费参加，但欢迎自愿捐款支持癌症研究。现场还有免费的健康检查服务和健康咨询。这是一个学习健康知识、关爱自己和家人的绝佳机会。让我们一起学习如何预防疾病，守护健康。', '悉尼', '悉尼大学医学院大礼堂', '2025-11-22 13:00:00', '2025-11-22 16:00:00', '2025-11-20 23:59:59', 0.00, 5000.00, 1250.00, 400, 95, '/images/health-lecture.jpg', 'active', FALSE),
+(3, 7, 'Cancer Prevention Health Workshop', 'Knowledge is the best prevention', 'Health workshop led by renowned oncologists and nutritionists, covering cancer prevention, early screening, healthy diet, and lifestyle. The workshop is free to attend, but voluntary donations to support cancer research are welcome. Free health check services and health consultations are also available on-site. This is an excellent opportunity to learn health knowledge and care for yourself and your family. Let us learn how to prevent diseases and protect our health together.', 'Sydney', 'Grand Auditorium, University of Sydney Medical School', '2025-11-22 13:00:00', '2025-11-22 16:00:00', '2025-11-20 23:59:59', 0.00, 5000.00, 1250.00, 400, 95, '/images/health-lecture.jpg', 'active', FALSE),
 
-(1, 8, '儿童足球慈善赛', '踢球做公益，运动献爱心', '儿童足球慈善比赛，邀请8-16岁的孩子们参与足球比赛，同时为贫困儿童体育教育筹款。比赛分为不同年龄组，每个孩子都能获得参与证书。现场还有足球技能培训、亲子游戏和健康小食。这是一个让孩子们在运动中学习团队合作和社会责任的好机会。', '阿德莱德', '阿德莱德体育公园足球场', '2025-11-12 09:00:00', '2025-11-12 15:00:00', '2025-11-08 23:59:59', 20.00, 8000.00, 2400.00, 200, 60, '/images/kids-football.jpg', 'active', FALSE),
+(1, 8, 'Kids Football Charity Match', 'Playing football for charity, sports with love', 'Children football charity match inviting 8-16 year olds to participate in football games while raising funds for underprivileged children sports education. The competition is divided into different age groups, and every child will receive a participation certificate. The venue also features football skills training, parent-child games, and healthy snacks. This is a great opportunity for children to learn teamwork and social responsibility through sports.', 'Adelaide', 'Football Field, Adelaide Sports Park', '2025-11-12 09:00:00', '2025-11-12 15:00:00', '2025-11-08 23:59:59', 20.00, 8000.00, 2400.00, 200, 60, '/images/kids-football.jpg', 'active', FALSE),
 
-(2, 6, '海滩清洁志愿活动', '保护海洋，从我做起', '海滩环境保护志愿服务活动，志愿者们将清理海滩垃圾、整理海岸线，并参与海洋环保教育。活动免费参加，提供清洁工具、手套和环保袋。参与者可以学到海洋保护知识，了解塑料污染对海洋生态的影响。让我们用实际行动保护美丽的海洋环境，为下一代留下清洁的地球。', '黄金海岸', '黄金海岸冲浪者天堂海滩', '2025-10-14 08:00:00', '2025-10-14 12:00:00', '2025-10-12 23:59:59', 0.00, 3000.00, 750.00, 300, 85, '/images/beach-cleanup.jpg', 'active', FALSE),
+(2, 6, 'Beach Cleanup Volunteer Activity', 'Protecting oceans, starting from us', 'Beach environmental protection volunteer service activity where volunteers will clean beach litter, organize coastlines, and participate in marine environmental education. The activity is free to participate, providing cleaning tools, gloves, and eco-bags. Participants can learn about ocean protection knowledge and understand the impact of plastic pollution on marine ecosystems. Let us protect the beautiful marine environment through practical actions, leaving a clean planet for the next generation.', 'Gold Coast', 'Surfers Paradise Beach, Gold Coast', '2025-10-14 08:00:00', '2025-10-14 12:00:00', '2025-10-12 23:59:59', 0.00, 3000.00, 750.00, 300, 85, '/images/beach-cleanup.jpg', 'active', FALSE),
 
-(3, 1, '粉红丝带慈善晚宴', '关爱女性健康', '粉红丝带乳腺癌防治主题慈善晚宴，旨在提高女性对乳腺癌预防和早期发现的认识，同时为乳腺癌研究和患者支持筹款。晚宴将有医学专家分享健康知识，乳腺癌康复者分享励志故事，以及感人的音乐表演。让我们一起支持女性健康事业，传递关爱与希望。', '珀斯', '珀斯皇冠酒店大宴会厅', '2025-12-10 18:30:00', '2025-12-10 22:30:00', '2025-12-05 23:59:59', 120.00, 35000.00, 10500.00, 180, 52, '/images/pink-ribbon.jpg', 'active', FALSE),
+(3, 1, 'Pink Ribbon Charity Gala', 'Caring for women health', 'Pink Ribbon breast cancer prevention themed charity gala aimed at raising awareness about breast cancer prevention and early detection among women, while raising funds for breast cancer research and patient support. The gala will feature medical experts sharing health knowledge, breast cancer survivors sharing inspiring stories, and touching musical performances. Let us support women health causes together and spread care and hope.', 'Perth', 'Grand Ballroom, Crown Perth Hotel', '2025-12-10 18:30:00', '2025-12-10 22:30:00', '2025-12-05 23:59:59', 120.00, 35000.00, 10500.00, 180, 52, '/images/pink-ribbon.jpg', 'active', FALSE),
 
-(1, 2, '童心奔跑慈善跑', '为孩子们的未来而跑', '专为支持儿童教育和福利而举办的家庭友好型慈善跑活动。设有1公里儿童跑、3公里家庭跑和10公里成人跑，适合不同年龄和体能水平的参与者。活动现场有儿童游乐区、健康检查站和营养补给站。每位参与者都将获得纪念品，优胜者还有特别奖品。让我们一起为孩子们的未来奔跑！', '堪培拉', '堪培拉国会大厦周边', '2025-11-25 07:30:00', '2025-11-25 11:00:00', '2025-11-20 23:59:59', 30.00, 18000.00, 5400.00, 400, 108, '/images/kids-run.jpg', 'active', FALSE);
+(1, 2, 'Children Heart Run', 'Running for children future', 'Family-friendly charity run specifically held to support children education and welfare. Features 1km children run, 3km family run, and 10km adult run, suitable for different ages and fitness levels. The venue includes children playground, health check stations, and nutrition supply stations. Every participant will receive commemorative items, and winners will receive special prizes. Let us run together for children future!', 'Canberra', 'Around Parliament House, Canberra', '2025-11-25 07:30:00', '2025-11-25 11:00:00', '2025-11-20 23:59:59', 30.00, 18000.00, 5400.00, 400, 108, '/images/kids-run.jpg', 'active', FALSE);
 
--- 创建视图：活动概览
+-- Create View: Event Overview
 CREATE VIEW event_overview AS
 SELECT 
     e.id,
@@ -123,7 +123,7 @@ JOIN organizations o ON e.organization_id = o.id
 JOIN categories c ON e.category_id = c.id
 WHERE e.status = 'active';
 
--- 创建索引优化查询性能
+-- Create Indexes for Query Optimization
 CREATE INDEX idx_events_date_status ON events(event_date, status);
 CREATE INDEX idx_events_location_status ON events(location, status);
 CREATE INDEX idx_events_featured ON events(is_featured, status);
